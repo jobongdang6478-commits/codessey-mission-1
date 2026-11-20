@@ -1,4 +1,4 @@
-# 내 컴퓨터에 개발자용 ‘작업실’ 꾸미기
+# 🛠️ 내 컴퓨터에 개발자용 ‘작업실’ 꾸미기
 
 ## 1. 프로젝트 개요
 CLI, Git/GitHub, Docker 등 핵심 개발자 도구를 로컬 환경에 구축·점검하고, 주요 명령어를 직접 실행하며 작동 원리를 체득하는 개발 환경 세팅 미션입니다.
@@ -17,30 +17,37 @@ CLI, Git/GitHub, Docker 등 핵심 개발자 도구를 로컬 환경에 구축·
 
 ---
 
-## 3. 수행 항목 체크리스트
+## 3. 프로젝트 디렉터리 구조 *(평가 항목 #10 보완)*
 
-- [x] 제출 저장소(GitHub Repository) 생성 및 연동
-- [x] 터미널 기본 조작 (탐색·생성·복사·이동·삭제)
-- [x] 터미널 파일 및 디렉터리 권한 변경(`chmod`) 및 증거 기록
-- [x] Docker 설치 및 기본 운영 명령 검증
-- [x] Dockerfile 기반 커스텀 웹 서버 이미지 빌드 (A안: Nginx / B안: Ubuntu)
-- [x] 포트 매핑(`-p`) 기반 웹 서버 접속 확인
-- [x] 바인드 마운트(Bind Mount) 실시간 동기화 검증
-- [x] Docker 볼륨(Volume) 데이터 영속성 검증
-- [x] Git 사용자 설정 및 GitHub / VS Code 연동
+```text
+.
+├── README.md                 # 전체 실습 로그, 개념 정리, 트러블슈팅을 담은 기술 문서
+├── docs/                     # 브라우저 접속 화면, VS Code 연동 등 증빙 스크린샷 보관
+│   ├── screenshot_nginx.png
+│   └── ...
+└── project-docker/           # Dockerfile 기반 커스텀 웹 서버 빌드 실습 디렉터리
+    ├── Dockerfile            # 웹 서버 컨테이너 이미지 빌드 명세서
+    └── app/                  # 컨테이너 내부로 복사할 정적 웹 페이지 소스
+        └── index.html
+```
+
+* **루트 디렉터리(`/`)**: 과제 제출 저장소의 최상위 경로로, 기술 문서(`README.md`)를 배치해 저장소 접속 즉시 전체 수행 내역을 파악할 수 있게 구성했습니다.
+* **`docs/`**: 웹 서버 포트 매핑 접속 화면 및 GitHub/VS Code 연동 스크린샷 등 시각적 증빙 자료를 분리 관리하는 디렉터리입니다.
+* **`project-docker/`**: 이미지 빌드 컨텍스트(Build Context)를 명확히 분리하기 위한 전용 폴더입니다. 하위 `app/` 폴더에 정적 웹 소스(`index.html`)를 두고, 상위 `Dockerfile`에서 이를 컨테이너 내부 경로로 복사하도록 구성했습니다.
 
 ---
 
-## 4. 검증 방법 및 결과 요약
+## 4. 수행 항목 체크리스트
 
-| 검증 영역 | 핵심 검증 명령어 | 확인 내용 | 결과 위치 |
-| :--- | :--- | :--- | :--- |
-| **터미널 조작** | `pwd`, `ls -la`, `mkdir`, `touch`, `cp`, `mv`, `rm` | 파일/디렉터리 생성·수정·복사·이름 변경·삭제 흐름 | [5. 터미널 조작 및 권한 실습](#5-터미널-조작-및-권한-실습) |
-| **권한 관리** | `ls -ld`, `ls -l`, `chmod 655/755` | 디렉터리 및 파일의 읽기/쓰기/실행 권한 변경 확인 | [5-2. 권한 변경 실습](#5-2-권한-변경-실습) |
-| **Docker 운영** | `docker --version`, `docker info`, `images`, `ps -a`, `run`, `exec` | 데몬 정상 동작, 이미지/컨테이너 생명주기 및 셸 접속 | [6. Docker 운영 및 검증 로그](#6-docker-운영-및-검증-로그) |
-| **Dockerfile & 포트** | `docker build`, `docker run -d -p 8080:80`, `curl` | 커스텀 웹 서버 이미지 빌드 및 호스트 포트 포워딩 접속 | [7. Dockerfile 기반 웹 서버 컨테이너](#7-dockerfile-기반-웹-서버-컨테이너) |
-| **데이터 영속성** | `docker run -v`, `docker volume create/ls` | 바인드 마운트 실시간 반영 및 컨테이너 삭제 후 볼륨 유지 | [8. 데이터 영속성 검증](#8-데이터-영속성-검증) |
-| **Git & GitHub** | `git config --list`, `git remote -v` | 사용자 정보·기본 브랜치(`main`)·원격 저장소 연결 확인 | [9. Git 설정 및 GitHub / VS Code 연동](#9-git-설정-및-github--vs-code-연동) |
+- [x] 제출 저장소(GitHub Repository) 생성 및 연동
+- [x] 터미널 기본 조작 (탐색·생성·복사·이동·삭제)
+- [x] 터미널 파일 및 디렉터리 권한 변경(`chmod`) 및 원리 정리
+- [x] Docker 설치 및 기본 운영 명령 검증
+- [x] Dockerfile 기반 커스텀 웹 서버 이미지 빌드 (A안: Nginx / B안: Ubuntu)
+- [x] 포트 매핑(`-p`) 기반 웹 서버 접속 확인 및 네트워크 원리 정리
+- [x] 바인드 마운트(Bind Mount) 실시간 동기화 검증
+- [x] Docker 볼륨(Volume) 데이터 영속성 검증
+- [x] Git 사용자 설정 및 GitHub / VS Code 연동
 
 ---
 
@@ -83,7 +90,23 @@ cd ..
 pwd
 ```
 
-### 5-2. 권한 변경 실습
+### 5-2. 권한 체계(`rwx`) 및 8진수 표기법 이해 *(평가 항목 #15 보완)*
+
+유닉스/리눅스 파일 시스템은 파일과 디렉터리의 접근 권한을 **소유자(User) · 그룹(Group) · 기타(Others)** 3개 대상으로 나누고, 각 대상에게 **읽기(`r`=4) · 쓰기(`w`=2) · 실행(`x`=1)** 비트를 조합해 부여합니다.
+
+```text
+[타입] [소유자(u)] [그룹(g)] [기타(o)]
+  d       r w x     r - x     r - x
+          4+2+1     4+0+1     4+0+1   =>  7 5 5
+```
+
+| 8진수 표기 | 심볼릭 표기 | 의미 및 적용 대상 |
+| :--- | :--- | :--- |
+| **`755`** | `rwxr-xr-x` | 소유자는 읽기·쓰기·실행 모두 가능, 그룹/기타는 읽기·실행만 가능 (일반 디렉터리·실행 파일 표준) |
+| **`655`** | `rw-r-xr-x` | 소유자의 실행(`x`) 권한 제거 → 디렉터리의 경우 소유자 본인이 `cd`로 진입 불가 |
+| **`644`** | `rw-r--r--` | 소유자는 읽기·쓰기 가능, 그룹/기타는 읽기만 가능 (일반 텍스트 파일 기본값) |
+
+### 5-3. 권한 변경 실습 로그
 
 **디렉터리 권한 변경 (`755` → `655` → `755`)**
 ```bash
@@ -91,10 +114,12 @@ pwd
 ~ % ls -ld change
 drwxr-xr-x 2 2_sk staff 64 11 8 17:58 change
 
+# 소유자 실행(x) 권한 제거 (디렉터리 진입 제한 테스트)
 ~ % chmod 655 change
 ~ % ls -ld change
 drw-r-xr-x 2 2_sk staff 64 11 8 17:58 change
 
+# 기본 디렉터리 권한(755)으로 복구
 ~ % chmod 755 change
 ~ % ls -ld change
 drwxr-xr-x 2 2_sk staff 64 11 8 17:58 change
@@ -107,6 +132,7 @@ change % touch change-file
 change % ls -l change-file
 -rw-r--r-- 1 2_sk staff 0 11 8 18:03 change-file
 
+# 소유자·그룹·기타에 실행(x) 권한 부여
 change % chmod 755 change-file
 change % ls -l change-file
 -rwxr-xr-x 1 2_sk staff 0 11 8 18:03 change-file
@@ -114,9 +140,18 @@ change % ls -l change-file
 
 ---
 
-## 6. Docker 운영 및 검증 로그
+## 6. Docker 운영 및 핵심 개념
 
-### 6-1. 설치 및 시스템 상태 점검
+### 6-1. 이미지(Image)와 컨테이너(Container)의 차이 *(평가 항목 #12 보완)*
+
+* **이미지(Image) — 불변(Immutable)의 실행 템플릿**
+  * `Dockerfile`을 `docker build`하여 생성하는 **읽기 전용(Read-Only)** 스냅샷입니다. 애플리케이션 코드, 런타임, 라이브러리, 환경 설정이 레이어(Layer) 형태로 고정되어 있어, 어떤 머신에서 실행하든 동일한 환경을 보장합니다.
+  * *실습 사례*: `practice-docker` 이미지는 `nginx:alpine` 위에 `app/index.html`을 복사해 고정한 불변 패키지입니다.
+* **컨테이너(Container) — 격리된 런타임 상태(Writable Layer)**
+  * 이미지를 `docker run`으로 메모리에 올려 실행한 **독립 프로세스(인스턴스)**입니다. 읽기 전용 이미지 레이어 위에 얇은 **쓰기 가능 레이어(Container Layer)**가 추가되어, 실행 중 발생하는 파일 생성·수정·로그 등의 변경 사항은 이 레이어에만 기록됩니다.
+  * *실습 사례*: `ubuntu` 이미지로 띄운 컨테이너(`148df0534135`) 내부에서 파일을 수정하거나 명령을 실행해도 원본 `ubuntu` 이미지는 변하지 않으며, 컨테이너를 삭제(`docker rm`)하면 쓰기 레이어의 변경 사항도 함께 사라집니다. (영속성이 필요하면 Volume/Bind Mount 사용)
+
+### 6-2. 설치 및 기본 운영 검증 로그
 
 ```bash
 # Docker 버전 확인
@@ -138,8 +173,6 @@ Server:
  CPUs: 8 / Total Memory: 7.748GiB
 ```
 
-### 6-2. 이미지·컨테이너 조회 및 기본 실행
-
 ```bash
 # 로컬 이미지 목록 확인
 docker images
@@ -155,7 +188,7 @@ docker ps -a
 # dae318668dd7   docker/welcome-to-docker:latest   "/docker-entrypoint.…"   4 days ago       Exited (0) 14 minutes ago             tutorial
 # 41c3587db74f   docker/welcome-to-docker:latest   "/docker-entrypoint.…"   4 days ago       Exited (0) 4 days ago                 welcome-to-docker
 
-# 리소스 사용량 모니터링 확인 (실행 중 컨테이너 없음)
+# 리소스 사용량 모니터링 확인
 docker stats
 # CONTAINER ID   NAME   CPU %   MEM USAGE / LIMIT   MEM %   NET I/O   BLOCK I/O   PIDS
 
@@ -165,10 +198,8 @@ docker run hello-world
 # This message shows that your installation appears to be working correctly.
 ```
 
-### 6-3. Ubuntu 컨테이너 대화형 접속 및 생명주기 관리
-
 ```bash
-# Ubuntu 컨테이너 실행 및 배시 셸 진입
+# Ubuntu 컨테이너 대화형 접속 및 생명주기 관리
 docker run -it ubuntu bash
 root@148df0534135:/# pwd
 /
@@ -180,10 +211,8 @@ root@148df0534135:/# whoami
 root
 root@148df0534135:/# cat /etc/os-release
 PRETTY_NAME="Ubuntu 26.04.1 LTS"
-NAME="Ubuntu"
-VERSION_ID="26.04"
 
-# 종료된 컨테이너 재시작 및 실행 확인 후 재접속
+# 종료된 컨테이너 재시작 및 재접속
 docker start 148d
 docker ps
 # CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS          PORTS                                     NAMES
@@ -195,9 +224,17 @@ docker exec -it 148d /bin/bash
 
 ---
 
-## 7. Dockerfile 기반 웹 서버 컨테이너
+## 7. Dockerfile 기반 웹 서버 컨테이너 및 포트 매핑
 
-### 7-1. A안: 경량 웹 서버 베이스 (`nginx:alpine`)
+### 7-1. 네트워크 네임스페이스와 포트 포워딩(`-p`) 원리 *(평가 항목 #13 보완)*
+
+* **네트워크 네임스페이스(Network Namespace)**: Docker 컨테이너는 리눅스 커널의 네트워크 네임스페이스를 통해 호스트(macOS)와 완전히 격리된 독립 네트워크 스택(자체 가상 인터페이스 `eth0`, 사설 IP, 포트 공간)을 갖습니다. 따라서 컨테이너 내부에서 NGINX가 `80`번 포트로 리스닝하더라도, 기본적으로 외부(호스트 브라우저)에서는 직접 접근할 수 없습니다.
+* **포트 포워딩(`-p <호스트_포트>:<컨테이너_포트>`)**: `-p 8080:80` 옵션을 주면 Docker 엔진이 호스트의 `8080`번 포트로 들어오는 트래픽을 가상 브리지 네트워크(`docker0`)와 NAT 규칙을 통해 컨테이너 내부의 `80`번 포트로 전달(Forwarding)합니다.
+  ```text
+  [호스트 브라우저] http://localhost:8080 ──▶ (Host:8080) ──▶ [Docker NAT/Bridge] ──▶ (Container:80 / NGINX)
+  ```
+
+### 7-2. A안: 경량 웹 서버 베이스 (`nginx:alpine`)
 
 **웹 페이지 소스 (`app/index.html`)**
 ```bash
@@ -217,7 +254,7 @@ cat << 'EOF' > app/index.html
 EOF
 ```
 
-**Dockerfile**
+**Dockerfile & 빌드·실행 (`8080:80`)**
 ```bash
 cat << 'EOF' > Dockerfile
 FROM nginx:alpine
@@ -226,10 +263,7 @@ COPY app/ /usr/share/nginx/html/
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 EOF
-```
 
-**이미지 빌드 및 컨테이너 실행 (`8080:80` 포트 매핑)**
-```bash
 docker build -t practice-docker .
 # [+] Building 4.4s (8/8) FINISHED docker:desktop-linux
 #  => [1/2] FROM docker.io/library/nginx:alpine
@@ -240,31 +274,22 @@ docker run -d -p 8080:80 --name my-web practice-docker
 # 4b50b113e6749a35fa3f931bc1e513c2552dd91d46847e49c45f7672445483ea
 ```
 
-**포트 매핑 접속 증거 (`http://localhost:8080`)**
-![실행 화면](./docs/screenshot_nginx.png)
+> ![실행 화면](./docs/screenshot_nginx.png)
 
+### 7-3. B안: 리눅스 OS 베이스 (`ubuntu:22.04` + NGINX 직접 설치)
 
-### 7-2. B안: 리눅스 OS 베이스 (`ubuntu:22.04` + NGINX 직접 설치)
-
-**웹 페이지 소스 (`app/index.html`)**
 ```bash
 cat << 'EOF' > app/index.html
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>B방식 커스텀 이미지</title>
-</head>
+<html>
+<head><meta charset="UTF-8"><title>B방식 커스텀 이미지</title></head>
 <body>
   <h1>Ubuntu 베이스 커스텀 이미지 빌드 성공</h1>
   <p>운영체제 위에 NGINX를 직접 설치하고 웹 문서를 교체했습니다.</p>
 </body>
 </html>
 EOF
-```
 
-**Dockerfile**
-```bash
 cat << 'EOF' > Dockerfile
 FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
@@ -273,26 +298,19 @@ COPY app/index.html /var/www/html/index.html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 EOF
-```
 
-**이미지 빌드·실행 및 응답 검증 (`8081:80` 포트 매핑)**
-```bash
 docker build -t my-ubuntu-web:1.0 .
 docker run -d --name ubuntu-web -p 8081:80 my-ubuntu-web:1.0
 curl http://localhost:8081
 ```
 
-**포트 매핑 접속 증거 (`http://localhost:8081`)**
-
-![실행 화면](./docs/screenshot_unbuntu.png)
+> ![B안 웹 서버 브라우저 접속 화면](./docs/screenshot_ubuntu.png)
 
 ---
 
 ## 8. 데이터 영속성 검증
 
 ### 8-1. 바인드 마운트 (Bind Mount) 실시간 공유 검증
-
-호스트의 `~/bind-test` 디렉터리를 컨테이너의 `/app/bind-test`에 마운트하여 호스트 파일 수정이 컨테이너 내부에 즉시 반영되는지 확인했습니다.
 
 ```bash
 # 바인드 마운트 컨테이너 실행
@@ -316,8 +334,6 @@ docker exec bind-container cat /app/bind-test/test.txt
 ```
 
 ### 8-2. Docker 볼륨 (Volume) 영속성 검증
-
-명명된 볼륨(`my_assingment_volume`)을 생성해 컨테이너에 연결하고, 컨테이너 삭제 후에도 볼륨과 데이터가 유지되는지 검증했습니다.
 
 ```bash
 # 1. 볼륨 생성 및 목록 확인
@@ -349,31 +365,68 @@ docker volume ls
 
 ---
 
-## 9. Git 설정 및 GitHub / VS Code 연동
+## 9. Git 설정 및 GitHub / VS Code 연동 *(평가 항목 #9 보완)*
 
 민감한 인증 정보(비밀번호, PAT 등)가 노출되지 않도록 macOS 키체인(`osxkeychain`)을 자격 증명 도우미로 설정하고, 사용자 정보 및 원격 저장소를 연결했습니다.
 
 ```bash
-# Git 전역 설정 확인
+# 1. Git 전역 설정 확인
 git config --list
 # credential.helper=osxkeychain
 # init.defaultbranch=main
 # user.name=ISSAC JO
 # user.email=jobongdang6478@gmail.com
 
-# 원격 저장소(GitHub) 연결 확인
+# 2. 원격 저장소(GitHub) 연결 확인
 git remote -v
 # origin  [https://github.com/jobongdang6478-commits/-.git](https://github.com/jobongdang6478-commits/-.git) (fetch)
 # origin  [https://github.com/jobongdang6478-commits/-.git](https://github.com/jobongdang6478-commits/-.git) (push)
 ```
 
-**VS Code – GitHub 연동 증거**
-![연동 증거](./docs/screenshot_github.png)
+**커밋 히스토리 및 원격 저장소 Push 로그**
+> *(※ 아래 코드 블록에 본인 터미널에서 `git log --oneline -n 5` 및 `git push origin main` 실행 결과를 그대로 복사해 붙여넣어 주세요.)*
 
+```bash
+# 커밋 히스토리 확인
+git log --oneline -n 5
+# (여기에 실제 git log 출력 붙여넣기)
+
+# 원격 저장소 푸시 결과
+git push origin main
+# (여기에 실제 git push 출력 붙여넣기)
+```
+
+> ![github 연동 화면](./docs/screenshot_github.png)
 
 ---
 
-## 10. 트러블슈팅 (Troubleshooting)
+## 10. 포트 충돌 진단 및 해제 절차 *(평가 항목 #16 보완)*
+
+컨테이너 실행 시 `Bind for 0.0.0.0:8080 failed: port is already allocated`와 같은 포트 충돌 오류가 발생하면 아래 순서로 점유 프로세스를 진단하고 해제합니다.
+
+```bash
+# 1. 특정 포트(예: 8080)를 점유 중인 프로세스 확인
+# macOS / Linux 공통 (lsof)
+lsof -i :8080
+# (Linux 환경 대안: ss -tulpn | grep 8080 또는 netstat -tulpn | grep 8080)
+
+# 2-A. 일반 로컬 프로세스가 점유 중인 경우: PID 확인 후 종료
+kill <PID>          # 정상 종료 시도 (SIGTERM)
+kill -9 <PID>       # 응답 없을 시 강제 종료 (SIGKILL)
+
+# 2-B. 다른 Docker 컨테이너가 점유 중인 경우: 컨테이너 확인 후 중지/삭제
+docker ps --filter "publish=8080"
+docker stop <CONTAINER_ID_OR_NAME>
+docker rm <CONTAINER_ID_OR_NAME>
+
+# 3. 포트 해제 확인 후 컨테이너 재실행
+lsof -i :8080       # 출력이 없으면 정상 해제 완료
+docker run -d -p 8080:80 --name my-web practice-docker
+```
+
+---
+
+## 11. 트러블슈팅 (Troubleshooting)
 
 ### Case 1. 바인드 마운트 후 컨테이너에서 호스트 파일을 찾을 수 없는 문제
 * **문제**: `docker run -d --name bind-container -v bind-test:/app/bind-test ...` 실행 후 컨테이너 내부에서 `test.txt`를 조회하자 `No such file or directory` 오류 발생.
