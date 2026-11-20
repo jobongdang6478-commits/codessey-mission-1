@@ -241,10 +241,8 @@ docker run -d -p 8080:80 --name my-web practice-docker
 ```
 
 **포트 매핑 접속 증거 (`http://localhost:8080`)**
-> ![A안 웹 서버 브라우저 접속 화면](./images/web-nginx-8080.png)
-> *(추후 주소창이 포함된 브라우저 접속 스크린샷 첨부 예정)*
+![실행 화면](./docs/screenshot_nginx.png)
 
----
 
 ### 7-2. B안: 리눅스 OS 베이스 (`ubuntu:22.04` + NGINX 직접 설치)
 
@@ -285,8 +283,8 @@ curl http://localhost:8081
 ```
 
 **포트 매핑 접속 증거 (`http://localhost:8081`)**
-> ![B안 웹 서버 브라우저 접속 화면](./images/web-ubuntu-8081.png)
-> *(추후 주소창이 포함된 브라우저 접속 스크린샷 첨부 예정)*
+
+![실행 화면](./docs/screenshot_unbuntu.png)
 
 ---
 
@@ -370,8 +368,8 @@ git remote -v
 ```
 
 **VS Code – GitHub 연동 증거**
-> ![VS Code GitHub 연동 화면](./images/vscode-github-sync.png)
-> *(추후 VS Code 좌측 소스 제어 / GitHub 계정 로그인 확인 스크린샷 첨부 예정)*
+![연동 증거](./docs/screenshot_github.png)
+
 
 ---
 
